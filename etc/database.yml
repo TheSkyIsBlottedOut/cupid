@@ -1,0 +1,8 @@
+---
+:dev: &dev
+  :adapter: mysql
+  :database: dev
+  :username: username
+  :password: --
+  :host: 192.168.0.1
+

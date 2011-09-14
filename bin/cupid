@@ -1,0 +1,2 @@
+#!/bin/bash
+ruby -r/cupid/core.rb $1

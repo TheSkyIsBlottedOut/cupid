@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require '/cupid/core'
+require 'fileutils'
+require 'lib/arrow'
+
+MyBulk = Hashie::Mash.new
+MyBulk.name = ARGV.shift
+MyBulk.script_name = ARGV.shift
+
+raise "Usage - cupid_bulk_script importer scriptname" unless MyBulk.name && MyBulk.script_name
+MyBulk.arrow = Arrow::Core.new(MyBulk.name)
+MyBulk.log_path = MyBulk.arrow.path / 'logs' / "#{MyBulk.script_name}.log"
+Cupid::Logger.open(MyBulk.log_path)
+
+begin
+  Dir.chdir(MyBulk.arrow.path)
+  Kernel.load(MyBulk.arrow.path / 'scripts' / MyBulk.script_name + '.rb')
+rescue Exception => e
+  Cupid::Logger.warn("Exception Raised: #{e}")
+  caller.each {|x| Cupid::Logger.debug(x)}
+end

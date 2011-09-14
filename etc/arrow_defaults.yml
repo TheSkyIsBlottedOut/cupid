@@ -1,0 +1,4 @@
+---
+:engine: br6
+:settings:
+  :create_agents: yes
