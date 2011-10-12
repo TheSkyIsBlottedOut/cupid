@@ -13,7 +13,7 @@ module Cupid
     end
     
     def root
-      @env.path ||= '/cupid'
+      @env.path ||=  File.expand_path(File.dirname(__FILE__) / '../..')
     end
     
     def start(p)
